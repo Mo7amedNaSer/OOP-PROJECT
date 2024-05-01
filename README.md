@@ -1,4 +1,4 @@
-# Askf
+# Askfm.
 ## First project in CPP and OOP.
 ### Question and answer sysetm.
 I tried to use some of topics of oop:
