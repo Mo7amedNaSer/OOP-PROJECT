@@ -145,7 +145,7 @@ public:
                     found = 1;
                     QU = Question[i].question;
                     ID_FROM = Question[i].id_to;
-                    ID_TO = Question[i].id_from;
+                    ID_TO = Question[i].id; //editing
                 }
             }
             if (!found) {
@@ -371,7 +371,7 @@ public:
         Question.clear();
         if (!file2.fail()) {
             Questions ques;
-            while (file2 >> ques.question >> ques.id_from >> ques.id_to) {
+            while (file2 >> ques.question >> ques.id >> ques.id_from >> ques.id_to) {
                 Question.push_back(ques);
             }
             file2.close();
@@ -386,7 +386,7 @@ public:
         Answer.clear();
         if (!file3.fail()) {
             Answers ans;
-            while (file2 >> ans.answer >> ans.id_from >> ans.id_to) {
+            while (file3 >> ans.answer >> ans.id >> ans.id_from >> ans.id_to) {
                 Answer.push_back(ans);
             }
             file3.close();
@@ -414,6 +414,7 @@ public:
         for (int i = 0; i < Question.size(); i++) {
             Questions ques = Question[i];
             file2 << ques.question << endl;
+            file2 << ques.id << endl;
             file2 << ques.id_from << endl;
             file2 << ques.id_to << endl;
         }
@@ -427,6 +428,7 @@ public:
         for (int i = 0; i < Answer.size(); i++) {
             Answers ans = Answer[i];
             file3 << ans.answer << endl;
+            file3 << ans.id << endl;
             file3 << ans.id_from << endl;
             file3 << ans.id_to << endl;
         }
@@ -500,7 +502,7 @@ public:
             for (int i = 0; i < Question.size(); ++i) {
                 string ANS = "Not answered.";
                 for (int j = 0; j < Answer.size(); ++j) {
-                    if (Answer[j].id_to == Question[i].id_from) {
+                    if (Answer[j].id_to == Question[i].id) { //editing
                         ANS = Answer[j].answer;
                     }
                 }
@@ -517,10 +519,10 @@ public:
 
 int main()
 {
-    System sys;
     Users USER;
-
     int op;
+restart:
+    System sys;
     op = sys.menu();
     if (op == 2) {
         USER = sys.Login();
@@ -565,7 +567,15 @@ start:
         goto start;
         break;
     case 8:
-        return 0;
+        int opee;
+        cout << "Enter 1 to login another user or any buttom to end: ";
+        cin >> opee;
+        if (opee == 1) {
+            goto restart;
+        }
+        else {
+            return 0;
+        }
         break;
     default:
         cout << "Selection not found, Try again..." << endl << endl;
