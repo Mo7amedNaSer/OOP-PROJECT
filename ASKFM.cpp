@@ -477,7 +477,7 @@ public:
                 string ANS = "Not answerd here.";
                 if (U.Id == Question[i].id_from) {
                     for (int j = 0; j < Answer.size(); ++j) {
-                        if (Answer[j].id_to == U.Id) {
+                        if (Answer[j].id_to == Question[i].id_from) {
                             ANS = Answer[j].answer;
                         }
                     }
